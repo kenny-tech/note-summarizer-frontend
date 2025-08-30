@@ -92,24 +92,17 @@ const App: React.FC = () => {
             style={{
               marginTop: "30px",
               textAlign: "left",
-              background: "white",
+              background: "#ffffff",
               padding: "20px",
               borderRadius: "8px",
               border: "1px solid #ddd",
-              color: "black",
-              whiteSpace: "pre-wrap", // preserve line breaks
+              color: "#000",
+              whiteSpace: "pre-wrap", // keep line breaks
+              fontSize: "16px",
+              lineHeight: "1.6",
             }}
           >
-            <h2 style={{ color: "#1F54DD", marginBottom: "10px" }}>Summary</h2>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: summary
-                  .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // bold text
-                  .replace(/^- (.*)/gm, "<li>$1</li>") // convert - to list items
-                  .replace(/(<li>.*<\/li>)/gs, "<ul>$1</ul>") // wrap list items in <ul>
-                  .replace(/\n/g, "<br/>"), // keep new lines
-              }}
-            />
+            {summary}
           </div>
         )}
       </div>
