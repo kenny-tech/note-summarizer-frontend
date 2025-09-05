@@ -11,20 +11,19 @@ const App: React.FC = () => {
     setSummary("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/analyze", {
+      const response = await fetch("http://127.0.0.1:8000/api/summarize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ data: text }),
+        body: JSON.stringify({ text }),
       });
 
       const data = await response.json();
-      console.log(data);
-      setSummary(data.analysis);
+      setSummary(data.summary);
     } catch (error) {
-      console.error("Error fetching analysis:", error);
-      setSummary("Failed to fetch analysis. Please try again.");
+      console.error("Error fetching summary:", error);
+      setSummary("Failed to fetch summary. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -53,7 +52,7 @@ const App: React.FC = () => {
         }}
       >
         <h1 style={{ marginBottom: "20px", color: "#1F54DD" }}>
-          Data Analyzer
+          Note Summarizer
         </h1>
 
         <textarea
@@ -66,7 +65,7 @@ const App: React.FC = () => {
             border: "1px solid #ccc",
             fontSize: "16px",
           }}
-          placeholder="Paste your data here..."
+          placeholder="Enter your note here..."
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -84,9 +83,10 @@ const App: React.FC = () => {
             fontSize: "16px",
           }}
         >
-          {loading ? "Analyzing..." : "Analyze"}
+          {loading ? "Summarizing..." : "Summarize"}
         </button>
 
+        {/* Summary output */}
         {summary && (
           <div
             style={{
@@ -97,7 +97,7 @@ const App: React.FC = () => {
               borderRadius: "8px",
               border: "1px solid #ddd",
               color: "#000",
-              whiteSpace: "pre-wrap",
+              whiteSpace: "pre-wrap", // keep line breaks
               fontSize: "16px",
               lineHeight: "1.6",
             }}
